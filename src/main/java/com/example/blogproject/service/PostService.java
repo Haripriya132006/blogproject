@@ -1,6 +1,7 @@
 package com.example.blogproject.service;
 
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,6 +23,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final FollowService followService;
     private final UserRepository userRepository;
+    private final Path uploadDir = Paths.get("uploads"); // folder for images
 
     public PostService(PostRepository postRepository,
                        FollowService followService,
@@ -103,4 +105,80 @@ public class PostService {
         return postRepository.findByTitleContainingIgnoreCase(title);
     }
 
+    public PostModel updatePost(UUID postid, String title, String content, String visibility, MultipartFile image) throws IOException {
+        PostModel post = postRepository.findById(postid)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+
+        post.setTitle(title);
+        post.setContent(content);
+        post.setVisibility(visibility);
+
+        if (image != null && !image.isEmpty()) {
+            try {
+                // 1. Delete old image
+                String oldImageUrl = post.getImageurl();
+                if (oldImageUrl != null && !oldImageUrl.isEmpty()) {
+                    String oldFilename = Paths.get(new URI(oldImageUrl).getPath()).getFileName().toString();
+                    Path oldImagePath = Paths.get("uploads").resolve(oldFilename);
+                    if (Files.exists(oldImagePath)) {
+                        Files.delete(oldImagePath);
+                    }
+                }
+
+                // 2. Save new image
+                String newFilename = UUID.randomUUID() + "_" + image.getOriginalFilename();
+                Path uploadPath = Paths.get("uploads").resolve(newFilename);
+                Files.createDirectories(uploadPath.getParent());
+                Files.write(uploadPath, image.getBytes());
+
+                // 3. Update post URL
+                post.setImageurl("http://localhost:8080/images/" + newFilename);
+            } catch (Exception e) {
+                e.printStackTrace();
+                // optionally throw RuntimeException if you want the edit to fail on image errors
+            }
+        }
+
+        return postRepository.save(post);
+    }
+        
+
+    public void deletePost(UUID postid) {
+            PostModel post = postRepository.findById(postid)
+                    .orElseThrow(() -> new RuntimeException("Post not found"));
+
+            try {
+                // Get the image URL from DB
+                String imageUrl = post.getImageurl(); // e.g., http://localhost:8080/images/xyz.jpg
+
+                if (imageUrl != null && !imageUrl.isEmpty()) {
+                    // Extract filename from URL
+                    String filename = Paths.get(new URI(imageUrl).getPath()).getFileName().toString();
+
+                    // Construct local path
+                    Path imagePath = Paths.get("uploads").resolve(filename);
+
+                    // Delete file if exists
+                    if (Files.exists(imagePath)) {
+                        Files.delete(imagePath);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace(); // Log error, but still continue with DB deletion
+            }
+
+            // Delete post from DB
+            postRepository.delete(post);
+        }
+    
+   
+    public List<PostModel> getPostsByUser(int userid) {
+        return postRepository.findByUser_Userid(userid);
+    }
+
+    public PostModel getPostById(UUID postid) {
+        return postRepository.findById(postid)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+    }
 }
+    

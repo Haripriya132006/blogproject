@@ -9,6 +9,8 @@ import {BrowserRouter,Routes,Route,Link} from 'react-router-dom';
 import PostDetails from './assets/Components/PostDetails';
 import SearchUsers from './assets/Components/SearchUsers';
 import Profile from './assets/Components/Profile';
+import MyPosts from './assets/Components/MyPosts';
+import EditPost from './assets/Components/EditPosts';
 function App() {
   return (
     <BrowserRouter>
@@ -20,7 +22,8 @@ function App() {
         <Route path="/postdetails" element={<PostDetails/>}/>
         <Route path="/searchusers" element={<SearchUsers/>}/>
         <Route path="/profile" element={<Profile/>}/>
-      </Routes>
+        <Route path="/myposts" element={<MyPosts />} />        
+        <Route path="/editpost/:postid" element={<EditPost />} />        </Routes>
     </BrowserRouter>
 
   )

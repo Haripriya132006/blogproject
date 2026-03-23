@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import "../css/Signin.css";
 const api="http://localhost:8080/user/adduser"
 function Signincomp(){
     const [username,setUsername]=useState("");
@@ -31,18 +31,35 @@ function Signincomp(){
         
     }
     return (
-    <>
-    
-        
-        <label>username</label>
-        <input type="text"  onChange={(e)=>{setUsername(e.target.value)}}/><br/>
-        <label>email</label>
-        <input type="text" onChange={(e)=>{setEmail(e.target.value)}}/> <br/>      
-        <label>password</label>
-        <input type="text" onChange={(e)=>{setPassword(e.target.value)}}/>
-        <button onClick={Adduser}>Signin</button>
-        
-    </>
-)
+        <div className="signin-container">
+            <div className="signin-box">
+
+                <h2>Signup</h2>
+
+                <label>Username</label>
+                <input
+                    type="text"
+                    onChange={(e)=>setUsername(e.target.value)}
+                />
+
+                <label>Email</label>
+                <input
+                    type="text"
+                    onChange={(e)=>setEmail(e.target.value)}
+                />
+
+                <label>Password</label>
+                <input
+                    type="password"
+                    onChange={(e)=>setPassword(e.target.value)}
+                />
+
+                <button onClick={Adduser}>
+                    Signup
+                </button>
+
+            </div>
+        </div>
+    );
 }
 export default Signincomp;

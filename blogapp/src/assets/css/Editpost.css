@@ -1,0 +1,49 @@
+/* FULL PAGE BACKGROUND */
+body {
+    margin: 0;
+    background: linear-gradient(to right, #667eea, #764ba2);
+    font-family: Arial, sans-serif;
+}
+
+/* Main container */
+.post-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Form card */
+.post-box {
+    width: 400px;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Inputs */
+.post-box input,
+.post-box textarea,
+.post-box select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* Button */
+.post-box button {
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background: #667eea;
+    color: white;
+    cursor: pointer;
+}
+
+.post-box button:hover {
+    background: #5a67d8;
+}

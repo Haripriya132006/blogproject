@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import MainPage from "./Mainpage";
-
+import "../css/FirstPage.css";
 function FirstPage(){
 
     const location = useLocation();
@@ -41,11 +41,20 @@ function FirstPage(){
         navigate("/post",{state:{userid}});
     };
 
-    return(
+    return (
         <>
-            <h1>Welcome {username}</h1>
+            <div className="firstpage-header">
+                <h1>Welcome, {username} 👋</h1>
 
-            <button onClick={addpost}>Add Post</button>
+                <div className="firstpage-actions">
+                    <button 
+                        className="add-post-btn"
+                        onClick={addpost}
+                    >
+                        + Add Post
+                    </button>
+                </div>
+            </div>
 
             <MainPage userid={userid}/>
         </>

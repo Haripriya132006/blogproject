@@ -1,0 +1,99 @@
+/* Background */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #667eea, #764ba2);
+    align-content: center; 
+    justify-items: center;
+}
+
+/* MAIN WRAPPER */
+.details-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+/* INNER CONTENT BOX */
+.details-content {
+    display: flex;
+    width: 100%;
+    max-width: 1100px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+/* LEFT POST */
+.post-section {
+    flex: 2;
+    padding: 25px;
+}
+
+.post-section h1 {
+    margin-bottom: 15px;
+}
+
+.post-section img {
+    width: 100%;
+    height: auto;           /* ✅ keeps original ratio */
+    max-height: 500px;      /* optional limit */
+    object-fit: contain;    /* ✅ shows full image */
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* RIGHT COMMENTS */
+.comments-section {
+    flex: 1;
+    border-left: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    height: 60vh;            /* ✅ fixed height */
+}
+
+/* COMMENTS LIST */
+.comments-list {
+    flex: 1;
+    overflow-y: auto;        /* ✅ scroll inside */
+    margin-bottom: 10px;
+    padding-right: 5px;
+}
+
+/* COMMENT CARD */
+.comment-card {
+    background: #f5f6fa;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* INPUT AREA */
+.comment-input {
+    display: flex;
+    gap: 10px;
+}
+
+.comment-input input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.comment-input button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    background: #667eea;
+    color: white;
+    cursor: pointer;
+}
+
+.comment-input button:hover {
+    background: #5a67d8;
+}

@@ -1,0 +1,42 @@
+/* Top welcome section */
+.firstpage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+/* Welcome text */
+.firstpage-header h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+/* Button group */
+.firstpage-actions button {
+    margin-left: 10px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    background: white;
+    color: #667eea;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.firstpage-actions button:hover {
+    background: #e2e8f0;
+}
+
+/* Add Post special button */
+.add-post-btn {
+    background: #22c55e !important;
+    color: white !important;
+}
+
+.add-post-btn:hover {
+    background: #16a34a !important;
+}

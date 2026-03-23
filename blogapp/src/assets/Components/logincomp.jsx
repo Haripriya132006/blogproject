@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "../css/Login.css";
 function Logincomp(){
 
     const api = "http://localhost:8080/user/check";
@@ -69,41 +69,42 @@ function Logincomp(){
         }
     }
 
-    return(
-        <div>
+    return (
+        <div className="login-container">
+            <div className="login-box">
 
-            <h2>Login</h2>
+                <h2>Login</h2>
 
-            <label>Email</label>
-            <input
-                type="text"
-                value={email}
-                onChange={(e)=>setEmail(e.target.value)}
-            />
-            <br/>
+                <label>Email</label>
+                <input
+                    type="text"
+                    value={email}
+                    onChange={(e)=>setEmail(e.target.value)}
+                />
 
-            <label>Password</label>
-            <input
-                type="password"
-                value={password}
-                onChange={(e)=>setPassword(e.target.value)}
-            />
-            <br/>
+                <label>Password</label>
+                <input
+                    type="password"
+                    value={password}
+                    onChange={(e)=>setPassword(e.target.value)}
+                />
 
-            <button onClick={Checkuser}>
-                Login
-            </button>
+                <button onClick={Checkuser}>
+                    Login
+                </button>
 
-            <br/><br/>
+                <p>Don't have an account?</p>
 
-            <p>Don't have an account?</p>
+                <button 
+                    className="secondary-btn"
+                    onClick={()=>navigate("/signin")}
+                >
+                    Signup
+                </button>
 
-            <button onClick={()=>navigate("/signin")}>
-                Signup
-            </button>
-
+            </div>
         </div>
-    )
+    );
 }
 
 export default Logincomp;

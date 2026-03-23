@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "../css/Mainpage.css";
 function MainPage({userid}){
 
     const [posts,setPosts] = useState([]);
@@ -39,78 +39,39 @@ function MainPage({userid}){
 
     };
 
-    return(
+    return (
         <>
+            <div className="navbar">
+                <h1>All Posts</h1>
 
-        <div
-        style={{
-            display:"flex",
-            justifyContent:"space-between",
-            alignItems:"center",
-            padding:"10px",
-            borderBottom:"1px solid gray"
-        }}
-        >
-
-            <h1>All Posts</h1>
-
-            <div>
-
-                <button onClick={goProfile}>
-                    Go To Profile
-                </button>
-
-                <button onClick={logout}>
-                    Logout
-                </button>
-
+                <div>
+                    <button onClick={goProfile}>Go To Profile</button>
+                    <button onClick={logout}>Logout</button>
+                </div>
             </div>
 
-        </div>
+            <div className="posts-container">
+                {posts.map((post) => (
+                    <div key={post.postid} className="post-card">
 
+                        <h2>{post.title}</h2>
 
-        <div
-        style={{
-            display:"grid",
-            gridTemplateColumns:"repeat(3,1fr)",
-            gap:"20px",
-            padding:"20px"
-        }}
-        >
+                        <p>{getPreview(post.content)}</p>
 
-            {posts.map((post) => (
+                        <img 
+                            src={post.imageurl}
+                            alt="post"
+                        />
 
-                <div 
-                    key={post.postid} 
-                    style={{
-                        border:"1px solid black",
-                        padding:"10px",
-                        borderRadius:"8px"
-                    }}
-                >
+                        <button onClick={()=>openPost(post)}>
+                            Add Comment
+                        </button>
 
-                    <h2>{post.title}</h2>
-
-                    <p>{getPreview(post.content)}</p>
-
-                    <img 
-                        src={post.imageurl}
-                        width="100%"
-                        alt="post"
-                    /><br/><br/>
-
-                    <button onClick={()=>openPost(post)}>
-                        Add Comment
-                    </button>
-
-                </div>
-
-            ))}
-
-        </div>
-
+                    </div>
+                ))}
+            </div>
         </>
-    )
+    );
 }
 
 export default MainPage;

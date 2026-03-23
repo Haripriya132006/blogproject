@@ -1,0 +1,91 @@
+/* Full page styling */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    height: 100vh;
+}
+
+/* Center container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Card */
+.login-box {
+    background: white;
+    padding: 30px 40px;
+    border-radius: 12px;
+    width: 320px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+/* Title */
+.login-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Labels */
+.login-box label {
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Inputs */
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: 0.2s;
+}
+
+.login-box input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102,126,234,0.5);
+}
+
+/* Buttons */
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 6px;
+    background-color: #667eea;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-box button:hover {
+    background-color: #5a67d8;
+}
+
+/* Secondary button */
+.login-box .secondary-btn {
+    background-color: #e2e8f0;
+    color: #333;
+}
+
+.login-box .secondary-btn:hover {
+    background-color: #cbd5e1;
+}
+
+/* Text */
+.login-box p {
+    margin-top: 15px;
+    font-size: 14px;
+}

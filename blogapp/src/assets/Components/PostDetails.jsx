@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import "../css/Postdetails.css";
 
 function PostDetails(){
 
@@ -62,64 +63,52 @@ function PostDetails(){
         }
     };
 
-    return(
+    return (
+    <div className="details-container">
 
-        <div style={{display:"flex"}}>
+        {/* LEFT: POST */}
+        <div className="post-section">
 
-            {/* POST SECTION */}
+        <h1>{post.title}</h1>
 
-            <div style={{flex:2,padding:"20px"}}>
+        {post.imageurl && (
+            <img src={post.imageurl} alt="post" />
+        )}
 
-                <h1>{post.title}</h1>
-
-                <img
-                src={post.imageurl}
-                width="400"
-                alt="post"
-                />
-
-                <p>{post.content}</p>
-
-            </div>
-
-
-            {/* COMMENTS SECTION */}
-
-            <div
-            style={{
-                flex:1,
-                borderLeft:"1px solid gray",
-                padding:"20px"
-            }}
-            >
-
-                <h2>Comments</h2>
-
-                {comments.map((c)=>(
-                    <div key={c.commentid} style={{marginBottom:"10px"}}>
-
-                        <b>{c.user.username}</b>
-
-                        <p>{c.comment}</p>
-
-                    </div>
-                ))}
-
-                <input
-                type="text"
-                value={newComment}
-                onChange={(e)=>setNewComment(e.target.value)}
-                placeholder="Write comment"
-                />
-
-                <button onClick={addComment}>
-                    Add
-                </button>
-
-            </div>
+        <p>{post.content}</p>
 
         </div>
 
+        {/* RIGHT: COMMENTS */}
+        <div className="comments-section">
+
+        <h2>Comments</h2>
+
+        <div className="comments-list">
+            {comments.map((c) => (
+            <div key={c.commentid} className="comment-card">
+                <b>{c.user.username}</b>
+                <p>{c.comment}</p>
+            </div>
+            ))}
+        </div>
+
+        <div className="comment-input">
+            <input
+            type="text"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Write a comment..."
+            />
+
+            <button onClick={addComment}>
+            Add
+            </button>
+        </div>
+
+        </div>
+
+    </div>
     );
 }
 

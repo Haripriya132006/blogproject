@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import "../css/Postcomp.css";
 function Postcomp(){
 
     const [title,setTitle] = useState("");
@@ -46,40 +46,33 @@ function Postcomp(){
 
     }
 
-    return(
+    return (
+        <div className="post-container">
+            <div className="post-box">
 
-        <div>
+                <h2>Create Post</h2>
 
-            <h2>Create Post</h2>
+                <label>Title</label>
+                <input type="text" onChange={(e)=>setTitle(e.target.value)}/>
 
-            <label>Title</label>
-            <input type="text" onChange={(e)=>setTitle(e.target.value)}/>
-            <br/><br/>
+                <label>Content</label>
+                <textarea onChange={(e)=>setContent(e.target.value)}></textarea>
 
-            <label>Content</label>
-            <textarea onChange={(e)=>setContent(e.target.value)}></textarea>
-            <br/><br/>
+                <label>Image</label>
+                <input type="file" onChange={(e)=>setImage(e.target.files[0])}/>
 
-            <label>Image</label>
-            <input type="file" onChange={(e)=>setImage(e.target.files[0])}/>
-            <br/><br/>
+                <label>Who can see this post?</label>
+                <select onChange={(e)=>setVisibility(e.target.value)}>
+                    <option value="PUBLIC">Everyone</option>
+                    <option value="FOLLOWERS">My Followers</option>
+                    <option value="FOLLOWING">People I Follow</option>
+                </select>
 
-            <label>Who can see this post?</label>
+                <button onClick={Post}>Post</button>
 
-            <select onChange={(e)=>setVisibility(e.target.value)}>
-
-                <option value="PUBLIC">Everyone</option>
-                <option value="FOLLOWERS">My Followers</option>
-                <option value="FOLLOWING">People I Follow</option>
-
-            </select>
-
-            <br/><br/>
-
-            <button onClick={Post}>Post</button>
-
+            </div>
         </div>
-    )
+    );
 }
 
 export default Postcomp;

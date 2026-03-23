@@ -9,10 +9,13 @@ import com.example.blogproject.DTO.LoginDTO;
 import com.example.blogproject.DTO.ResponseDTO;
 import com.example.blogproject.model.UserModel;
 import com.example.blogproject.service.UserService;
+import com.example.blogproject.util.JwtUtil;
 
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,23 +29,44 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserService userService;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public UserController(UserService userService, UserRepository userRepository){
         this.userService=userService;
         this.userRepository = userRepository;
     }
     
+
     @PostMapping("/adduser")
     public String adduser(@RequestBody UserModel user ) {
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.add(user);
+
         return "user added successfully";
     }
-    
     @PostMapping("/check")
     public ResponseDTO verifyuser(@RequestBody LoginDTO loginDTO){
-        if (userService.checkuserandpass(loginDTO.getEmail(), loginDTO.getPassword()).equalsIgnoreCase("User doesnt exist")==false)
-         return new ResponseDTO("User logged in successfully",userService.getusernamefromemail(loginDTO.getEmail()),userService.getuseridfromemail(loginDTO.getEmail()));
-        // return userService.checkuserandpass(loginDTO.getEmail(), loginDTO.getPassword());
-        return new ResponseDTO("User not found",loginDTO.getEmail(),-1);
+
+        UserModel user = userRepository.findByEmail(loginDTO.getEmail())
+                .orElse(null);
+
+        if (user != null && passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
+
+            String token = jwtUtil.generateToken(user.getEmail());
+
+            return new ResponseDTO(
+                    token,
+                    user.getUsername(),
+                    user.getUserid()
+            );
+        }
+
+        return new ResponseDTO("Invalid credentials", "", -1);
     }
     @PostMapping("/userexists/{username}")
     public boolean checkexist(@PathVariable String username){

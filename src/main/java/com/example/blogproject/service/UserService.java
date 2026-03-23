@@ -32,6 +32,7 @@ public class UserService {
     public String getusernamefromemail(String email){
         return userRepository.getusernamefromemail(email);
     }
+    
     public int getuseridfromemail(String email){
         return userRepository.getuseridfromemail(email);
     }
